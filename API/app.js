@@ -1,4 +1,3 @@
-const http = require('http');
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
@@ -16,7 +15,7 @@ app.use(bodyParser.json());
 mongoose.Promise = global.Promise;
 
 
-// A CONFIG var mongodb = 'mongodb://localhost/Coursnodedb';
+var mongodb = 'mongodb+srv://default:default@watcher-13drk.mongodb.net/test?retryWrites=true&w=majority';
 mongoose.connect(mongodb, {useNewUrlParser: true});
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));

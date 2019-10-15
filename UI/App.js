@@ -22,24 +22,21 @@ import {
   ViroARSceneNavigator
 } from 'react-viro';
 
-/*
- TODO: Insert your API key below
- */
-var sharedProps = {
-  apiKey:"API_KEY_HERE",
+const sharedProps = {
+  apiKey:"47B7F1EE-D208-470E-BE4B-5F1A3C318742",
 }
 
 // Sets the default scene you want for AR and VR
-var InitialARScene = require('./js/HelloWorldSceneAR');
-var InitialVRScene = require('./js/HelloWorldScene');
+const InitialARScene = require('./js/HelloWorldSceneAR');
+const InitialVRScene = require('./js/HelloWorldScene');
 
-var UNSET = "UNSET";
-var VR_NAVIGATOR_TYPE = "VR";
-var AR_NAVIGATOR_TYPE = "AR";
+const UNSET = "UNSET";
+const VR_NAVIGATOR_TYPE = "VR";
+const AR_NAVIGATOR_TYPE = "AR";
 
 // This determines which type of experience to launch in, or UNSET, if the user should
 // be presented with a choice of AR or VR. By default, we offer the user a choice.
-var defaultNavigatorType = UNSET;
+const defaultNavigatorType = UNSET;
 
 export default class ViroSample extends Component {
   constructor() {
@@ -103,7 +100,7 @@ export default class ViroSample extends Component {
         initialScene={{scene: InitialARScene}} />
     );
   }
-  
+
   // Returns the ViroSceneNavigator which will start the VR experience
   _getVRNavigator() {
     return (
@@ -130,7 +127,7 @@ export default class ViroSample extends Component {
   }
 }
 
-var localStyles = StyleSheet.create({
+const localStyles = StyleSheet.create({
   viroContainer :{
     flex : 1,
     backgroundColor: "black",

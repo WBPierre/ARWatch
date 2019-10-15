@@ -1,5 +1,4 @@
 # Watcher
--
 (ReactNative, NodeJS, MongoDB)
 
 - Solution cross-platform

@@ -15,7 +15,7 @@ app.use(bodyParser.json());
 mongoose.Promise = global.Promise;
 
 
-var mongodb = 'mongodb+srv://WBPierre:<password>@watcher-13drk.mongodb.net/test?retryWrites=true&w=majority';
+var mongodb = 'mongodb+srv://default:default@watcher-13drk.mongodb.net/test?retryWrites=true&w=majority';
 mongoose.connect(mongodb, {useNewUrlParser: true});
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));

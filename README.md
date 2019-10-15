@@ -7,3 +7,17 @@
 - Révolutionner le processus d'achat grâce à la Réalité Augmentée
 - Optimiser l'expérience client
 - Préparer les tendances technologiques de demain
+
+
+## Setup
+
+- `git clone https://github.com/Tristan1075/watcher.git`
+- `cd watcher`
+- `npm install`
+
+## QuickStart UI`
+- `npm start`
+
+## QuickStart NodeServer
+- `npm start`
+

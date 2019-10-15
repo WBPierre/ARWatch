@@ -4,12 +4,14 @@ import { createAppContainer } from 'react-navigation';
 import { createDrawerNavigator} from 'react-navigation-drawer';
 import { createStackNavigator} from 'react-navigation-stack';
 
+import HomeScreen from './src/screens/HomeScreen';
+
 
 const AppNavigator = createDrawerNavigator(
   {
     HomeDrawer: createStackNavigator({
       Home: {
-        screen: ''
+        screen: HomeScreen
       },
     }),
   }, {

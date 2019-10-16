@@ -1,6 +1,5 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet, FlatList } from 'react-native';
-import Carousel from 'react-native-snap-carousel';
+import { View, Image, StyleSheet, FlatList } from 'react-native';
 
 import NavigationOptions from '../components/NavigationOptions';
 import CardWatch from '../components/CardWatch'

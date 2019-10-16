@@ -5,13 +5,17 @@ import { createDrawerNavigator} from 'react-navigation-drawer';
 import { createStackNavigator} from 'react-navigation-stack';
 
 import HomeScreen from './src/screens/HomeScreen';
+import WatchDetail from './src/screens/WatchDetailScreen';
 
 
 const AppNavigator = createDrawerNavigator(
   {
     HomeDrawer: createStackNavigator({
       Home: {
-        screen: HomeScreen
+        screen: HomeScreen,
+      },
+      WatchDetail: {
+        screen: WatchDetail
       },
     }),
   }, {

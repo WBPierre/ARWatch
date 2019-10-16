@@ -3,6 +3,7 @@ import { Dimensions } from 'react-native';
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
 const margin = 4;
+const radius = 10;
 
 export default {
   window: {
@@ -16,5 +17,6 @@ export default {
     button: '#1787FB'
   },
   margin: margin,
-  marginL: margin*3
+  marginL: margin*3,
+  radius: radius
 };

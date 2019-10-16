@@ -5,17 +5,27 @@ ProductTags = require('../models/productTagsModel');
 const jwt = require('jsonwebtoken');
 const config = require('../config/secrets');
 
-exports.getAllProducts = function(req, res){
-    Product.find({active: true}, function (err, product) {
-        if (err) {
-            res.send(err);
-        }
-        else {
-            res.json(product);
-        }
-    }).sort({viewed_times: -1});
-};
+async function getProductSize(product){
+    var productSizes = await Product.find({id_product: product._id})
+    return productSizes;
+}
 
+async function getSize(product){
+    var productSizes = await getProductSize(product);
+    var sizes = await Product.find({_id: productSizes.id_product})
+    return sizes;
+}
+
+exports.getAllProducts = async function(req, res){
+    var data = new Object();
+    var products = await Product.find({active: true}).sort({viewed_times: -1});
+    for(let i=0;i<products.length;i++){
+        let sizes = await getSize(products[i]);
+        products[i].sizes = sizes
+        console.log(products[i].sizes)
+    }
+    res.json(products)
+};
 
 exports.getProduct = function(req, res){
     Product.findOne({_id: req.params.productId}, function(err, product){

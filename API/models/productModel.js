@@ -29,11 +29,9 @@ var productSchema = new Schema({
     },
     sizes: {
         type: Array,
-        default: [],
     },
     tags: {
         type: Array,
-        default: [],
     }
 });
 module.exports = mongoose.model('product', productSchema);

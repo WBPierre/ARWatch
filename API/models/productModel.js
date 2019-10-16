@@ -18,6 +18,10 @@ var productSchema = new Schema({
     description: {
         type: String,
         required: true,
+    },
+    activated: {
+        type: Boolean,
+        default: true,
     }
 });
 module.exports = mongoose.model('product', productSchema);

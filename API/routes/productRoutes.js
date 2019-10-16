@@ -9,6 +9,12 @@ module.exports = function(app){
 
     app.route('/products/create')
         .post(products.createProduct);
+
+    app.route('/products/addSize')
+        .post(products.addSizeToProduct);
+
+    app.route('/products/addTag')
+        .post(products.addTagsToProduct);
 };
 
 

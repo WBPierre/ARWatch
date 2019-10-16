@@ -1,4 +1,5 @@
 Product = require('../models/productModel');
+Size = require('../models/sizeModel');
 ProductSize = require('../models/productSizeModel');
 ProductTags = require('../models/productTagsModel');
 
@@ -11,8 +12,9 @@ async function getProductSize(product){
 }
 
 async function getSize(product){
-    var productSizes = await getProductSize(product);
-    var sizes = await Product.find({_id: productSizes.id_product})
+    for(let i=0;i<product.sizes.length;i++){
+        var sizes = await Size.find({_id: product.sizes[i]});
+    }
     return sizes;
 }
 
@@ -20,9 +22,7 @@ exports.getAllProducts = async function(req, res){
     var data = new Object();
     var products = await Product.find({active: true}).sort({viewed_times: -1});
     for(let i=0;i<products.length;i++){
-        let sizes = await getSize(products[i]);
-        products[i].sizes = sizes
-        console.log(products[i].sizes)
+        products[i].sizes = await getSize(products[i]);
     }
     res.json(products)
 };

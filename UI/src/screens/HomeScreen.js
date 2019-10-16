@@ -1,13 +1,10 @@
 import React from 'react';
-import { View, Image, StyleSheet, FlatList } from 'react-native';
-import { connect } from 'react-redux';
+import { View, Image, StyleSheet, FlatList, Button } from 'react-native';
 import axios from 'axios';
 import NavigationOptions from '../components/NavigationOptions';
 import CardWatch from '../components/CardWatch';
-import Separator from '../components/Separator';
 import Layout from '../config/Layout';
 
-import { fetchProducts } from '../../store/actions/products';
 
 
 class HomeScreen extends React.Component {
@@ -24,14 +21,23 @@ class HomeScreen extends React.Component {
     name: 'Accueil'
   };
 
-  state = {
-    products: []
+  constructor(props) {
+    super(props);
+    this.state = {
+      products: []
+    }
+    this.handlePress.bind(this);
   }
 
   componentDidMount = () => {
     axios.get('https://hackaton2019watcher.herokuapp.com/products')
       .then(res => this.setState({ products: res.data}));
   };
+
+
+   handlePress = (item) => {
+    this.props.navigation.navigate('WatchDetail', { item });
+  }
 
   _renderItem ({item, index}) {
     return (
@@ -41,9 +47,8 @@ class HomeScreen extends React.Component {
           name={item.name}
           price={item.price}
           image={item.image}
-          onPress={item.onPress}
+          onPress={() => this.handlePress(item)}
         />
-        <Separator/>
       </View>
     );
   }
@@ -53,9 +58,10 @@ class HomeScreen extends React.Component {
       <View style={styles.container}>
         <FlatList
           data={this.state.products}
-          renderItem={this._renderItem}
+          renderItem={this._renderItem.bind(this)}
           keyExtractor={item => item.id}
         />
+        <Button onPress={this.handlePress} title={"test"} />
       </View>
     );
   }

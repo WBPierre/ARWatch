@@ -12,7 +12,6 @@ type props {
 */
 
 const CardWatch = (props) => {
-  console.log(props.image)
   return(
     <View style={styles.container}>
       <TouchableOpacity onPress={props.onPress}>

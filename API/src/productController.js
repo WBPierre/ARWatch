@@ -1,7 +1,5 @@
 Product = require('../models/productModel');
 Size = require('../models/sizeModel');
-ProductSize = require('../models/productSizeModel');
-ProductTags = require('../models/productTagsModel');
 
 const jwt = require('jsonwebtoken');
 const config = require('../config/secrets');
@@ -48,7 +46,7 @@ exports.addSizeToProduct = async function(req, res){
     try{
         var product = await Product.find({_id: req.post.id});
         var newSizes = await product.sizes.push.apply(req.body.sizes);
-        var product = await Product.findOneAndUpdate({_id: req.post.id}, {sizes: newSizes});
+        product = await Product.findOneAndUpdate({_id: req.post.id}, {sizes: newSizes});
         res.json(product);
     }
     catch(err){
@@ -60,7 +58,7 @@ exports.addTagsToProduct = async function(req, res){
     try{
         var product = await Product.find({_id: req.post.id});
         var newTags = await product.tags.push.apply(req.body.tags);
-        var product = await Product.findOneAndUpdate({_id: req.post.id}, {tags: newTags});
+        product = await Product.findOneAndUpdate({_id: req.post.id}, {tags: newTags});
         res.json(product);
     }
     catch(err){

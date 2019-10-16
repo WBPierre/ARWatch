@@ -26,3 +26,16 @@ exports.getProduct = function(req, res){
         }
     });
 };
+
+exports.createProduct = function(req, res){
+    var newProduct = new Product(req.body);
+    console.log(req.body)
+    newProduct.save(function(err,product){
+        if(err){
+            res.send(err);
+        }
+        else{
+            res.json(product);
+        }
+    });
+}

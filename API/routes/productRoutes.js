@@ -7,6 +7,8 @@ module.exports = function(app){
     app.route('/products/:productId')
         .get(products.getProduct);
 
+    app.route('/products/create')
+        .post(products.createProduct);
 };
 
 

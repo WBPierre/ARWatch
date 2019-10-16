@@ -3,7 +3,7 @@ module.exports = function(app){
 
     app.post('/users/register', user.user_register);
     app.post('/users/login', user.user_login);
-    //app.delete('/users/delete', user.deleteUser);
+    
 };
 
 

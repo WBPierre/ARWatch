@@ -1,0 +1,21 @@
+# Uncomment the next line to define a global platform for your project
+# platform :ios, '9.0'
+
+target 'UI' do
+  # Comment the next line if you don't want to use dynamic frameworks
+  use_frameworks!
+  pod 'RNGestureHandler', :podspec => '../node_modules/react-native-gesture-handler/RNGestureHandler.podspec'
+  pod 'React', path: '../node_modules/react-native'
+  pod 'yoga', path: '../node_modules/react-native/ReactCommon/yoga'
+  # Pods for UI
+
+  target 'UI-tvOSTests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+  target 'UITests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+end

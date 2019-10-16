@@ -1,9 +1,15 @@
 User = require('../models/userModel');
 const jwt = require('jsonwebtoken');
 const config = require('../config/secrets');
+const stripe = require("stripe")("sk_test_DH7gtTJ7XlHZR61iXtHuFjif00OO9eeJI5");
 
-exports.user_register = function(req, res){
+exports.user_register = async function(req, res){
     var new_user = new User(req.body);
+    const customer = await stripe.customers.create({
+        email: req.body.email,
+        name: req.body.name
+    });
+    new_user.id_stripe = customer.id;
     new_user.save(function(err,user){
         if(err) res.send(err);
         res.json(user);
@@ -23,25 +29,3 @@ exports.user_login = function(req, res){
        }
     });
 };
-
-exports.deleteUser = function (req, res) {
-    User.remove({email: req.body.email}, function (err, user) {
-        if (err) {
-            res.send(err);
-        }
-        else {
-            res.json(user);
-        }
-    });
-}
-
-exports.listAllUsers = function (req, res) {
-    User.find({}, function (err, user) {
-        if (err) {
-            res.send(err);
-        }
-        else {
-            res.json(user);
-        }
-    });
-}

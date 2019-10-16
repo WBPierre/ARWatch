@@ -14,7 +14,8 @@ export default {
   color: {
     primary: '#fff',
     secondary: '#666666',
-    button: '#1787FB'
+    button: '#1787FB',
+    separator: '#d2d2d2'
   },
   margin: margin,
   marginL: margin*3,

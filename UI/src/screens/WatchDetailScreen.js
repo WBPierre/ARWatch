@@ -1,9 +1,11 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet, ScrollView } from 'react-native'
-import NavigationOptions from '../components/NavigationOptions';
-import Layout from '../config/Layout'
+import { View, Text, Image, StyleSheet, ScrollView, TouchableOpacity, AsyncStorage } from 'react-native';
+import { connect } from 'react-redux';
+import { Button, Icon } from 'react-native-elements';
 
-import { Button } from 'react-native-elements';
+import NavigationOptions from '../components/NavigationOptions';
+import Layout from '../config/Layout';
+import { addProduct } from '../store/actions/products';
 
 
 /*
@@ -16,20 +18,37 @@ type props {
 
 class WatchDetailScreen extends React.Component {
 
-  static navigationOptions = {
-    ...NavigationOptions,
-    title: 'Detail',
-    headerRight: (
-      <TouchableOpacity onPress>
-        <Icon
-          name='cart-plus'
-          type='font-awesome'
-          color='#fff'
-          size={30}
-        />
-      </TouchableOpacity>
-    ),
+  static navigationOptions = ({navigation}) => {
+    return {
+      ...NavigationOptions,
+      title: 'Detail',
+      headerRight: (
+        <TouchableOpacity onPress={navigation.getParam('addCart')}>
+          <Icon
+            name='cart-plus'
+            type='font-awesome'
+            color='#000'
+            size={30}
+          />
+        </TouchableOpacity>
+      ),
+      headerStyle: {
+        marginRight: Layout.marginL
+      }
+    }
   };
+
+  componentDidMount () {
+    this.props.navigation.setParams({ addCart: this.handleAddCart });
+  }
+
+  handleAddCart = async () => {
+
+    const { item } = this.props.navigation.state.params;
+
+    this.props.addProduct(item);
+    this.props.navigation.navigate('Cart');
+  }
 
   render () {
 
@@ -45,7 +64,7 @@ class WatchDetailScreen extends React.Component {
         </View>
         <View style={styles.textContainer}>
           <Text style={styles.title}>{item.name}</Text>
-          <Text style={styles.price}>{item.price}</Text>
+          <Text style={styles.price}>{item.price}€</Text>
           <Text style={styles.presentation}>{item.description}</Text>
         </View>
         <View style={styles.buttonContainer}>
@@ -119,4 +138,11 @@ const styles = StyleSheet.create({
   }
 });
 
-export default WatchDetailScreen;
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addProduct: (item) => dispatch(addProduct(item))
+  }
+};
+
+export default connect(null, mapDispatchToProps)(WatchDetailScreen);

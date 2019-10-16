@@ -3,6 +3,7 @@ import { Dimensions } from 'react-native';
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
 const margin = 4;
+const radius = 10;
 
 export default {
   window: {
@@ -11,10 +12,11 @@ export default {
   },
   isSmallDevice: width < 375,
   color: {
-    primary: '#666666',
-    secondary: '#f0f0f0',
+    primary: '#100e11',
+    secondary: '#666666',
     button: '#1787FB'
   },
   margin: margin,
-  marginL: margin*3
+  marginL: margin*3,
+  radius: radius
 };

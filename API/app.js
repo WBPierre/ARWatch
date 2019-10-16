@@ -22,8 +22,10 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 const userRoutes = require('./routes/userRoutes');
 const productRoutes = require('./routes/productRoutes');
+const userAddressRoutes = require('./routes/userAddressRoutes');
 
 userRoutes(app);
 productRoutes(app);
+userAddressRoutes(app);
 
 app.listen(port, hostname);

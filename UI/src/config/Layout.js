@@ -12,8 +12,8 @@ export default {
   },
   isSmallDevice: width < 375,
   color: {
-    primary: '#666666',
-    secondary: '#f0f0f0',
+    primary: '#100e11',
+    secondary: '#666666',
     button: '#1787FB'
   },
   margin: margin,

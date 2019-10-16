@@ -13,7 +13,7 @@ var userSchema = new Schema({
         required: true
     },
     gender: {
-        type: Boolean,
+        type: Number,
         required: true
     },
     birthdate: {

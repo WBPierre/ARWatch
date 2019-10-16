@@ -12,7 +12,8 @@ State 5 Annulé
 
 var orderSchema = new Schema({
     id_user:{
-        type: Number,
+        type: Schema.Types.ObjectId,
+        ref: 'Users',
         required: true
     },
     id_shipping:{

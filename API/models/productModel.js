@@ -5,7 +5,7 @@ var Schema =  mongoose.Schema;
 var productSchema = new Schema({
     viewed_times: {
         type: Number,
-        required: true,
+        default: 0,
     },
     price: {
         type: Number,
@@ -18,6 +18,14 @@ var productSchema = new Schema({
     description: {
         type: String,
         required: true,
+    },
+    picture: {
+        type: String,
+        required: true,
+    },
+    active: {
+        type: Boolean,
+        default: true,
     }
 });
 module.exports = mongoose.model('product', productSchema);

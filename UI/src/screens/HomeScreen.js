@@ -1,68 +1,68 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet, FlatList } from 'react-native';
-import Carousel from 'react-native-snap-carousel';
-
+import { View, Image, StyleSheet, FlatList, Button } from 'react-native';
+import axios from 'axios';
 import NavigationOptions from '../components/NavigationOptions';
-import CardWatch from '../components/CardWatch'
-import Layout from '../config/Layout'
-import Separator from '../components/Separator'
+import CardWatch from '../components/CardWatch';
+import Layout from '../config/Layout';
+
 
 
 class HomeScreen extends React.Component {
 
   static navigationOptions = {
     drawerLabel: 'Home',
-    drawerIcon: ({ tintColor: tintColor }) => (
-      <Image
-        source={require('../images/test.png')}
-        style={[styles.icon, { tintColor: tintColor }]}
-      />
+    headerTitle: (
+      <Image style={{ width: 85, height: 55 }} source={require('../images/logo.png')}/>
     ),
     ...NavigationOptions,
-    title: 'Accueil'
+    name: 'Accueil',
+    headerStyle: {
+      backgroundColor: '#fff',
+      shadowColor: 'transparent',
+      elevation: 0,
+      borderBottomColor: 'transparent',
+      borderBottomWidth: 0,
+    }
   };
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      products: []
+    }
+    this.handlePress.bind(this);
+  }
+
+  componentDidMount = () => {
+    axios.get('https://hackaton2019watcher.herokuapp.com/products')
+      .then(res => this.setState({ products: res.data}));
+  };
+
+
+   handlePress = (item) => {
+    this.props.navigation.navigate('WatchDetail', { item });
+  }
 
   _renderItem ({item, index}) {
     return (
       <View>
         <CardWatch
           key={index}
-          title={item.title}
+          name={item.name}
           price={item.price}
           image={item.image}
-          onPress={item.onPress}
+          onPress={() => this.handlePress(item)}
         />
-        <Separator/>
       </View>
     );
   }
 
   render () {
-
-    const api =
-    [
-      {
-        title: 'Boitier en aluminium argent de 40 mm',
-        price: 'A partir de 449€',
-        image: require('../images/watch1.jpeg'),
-        onPress: () => this.props.navigation.navigate('WatchDetail')
-      },
-      {
-        title: 'test',
-        image: require('../images/watch1.jpeg')
-      },
-      {
-        title: 'test',
-        image: require('../images/watch1.jpeg')
-      }
-    ];
-
     return(
       <View style={styles.container}>
         <FlatList
-          data={api}
-          renderItem={this._renderItem}
+          data={this.state.products}
+          renderItem={this._renderItem.bind(this)}
           keyExtractor={item => item.id}
         />
       </View>

@@ -1,4 +1,4 @@
-User = require('../views/userModel');
+User = require('../models/userModel');
 const jwt = require('jsonwebtoken');
 const config = require('../config/secrets');
 

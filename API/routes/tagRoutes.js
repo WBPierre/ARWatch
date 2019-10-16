@@ -9,4 +9,4 @@ module.exports = function(app){
 
     app.route('/tags/create')
         .post(tags.createTag);
-}
+};

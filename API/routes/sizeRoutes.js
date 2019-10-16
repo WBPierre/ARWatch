@@ -9,4 +9,4 @@ module.exports = function(app){
 
     app.route('/sizes/create')
         .post(sizes.createSize);
-}
+};

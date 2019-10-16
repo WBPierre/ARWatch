@@ -18,7 +18,7 @@ exports.getAllProducts = function(req, res){
 
 
 exports.getProduct = function(req, res){
-    Product.findOne({_id: req.body.id}, function(err, product){
+    Product.findOne({_id: req.params.productId}, function(err, product){
         if (err) {
             res.send(err);
         }

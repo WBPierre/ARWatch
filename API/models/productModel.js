@@ -19,7 +19,7 @@ var productSchema = new Schema({
         type: String,
         required: true,
     },
-    activated: {
+    active: {
         type: Boolean,
         default: true,
     }

@@ -4,11 +4,13 @@ var Schema =  mongoose.Schema;
 
 var orderProductSchema = new Schema({
     id_product:{
-        type: Number,
+        type: Schema.Types.ObjectId,
+        ref: 'product',
         required: true
     },
     id_order:{
-        type: Number,
+        type: Schema.Types.ObjectId,
+        ref: 'order',
         required: true
     }
 });

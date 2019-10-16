@@ -4,11 +4,13 @@ var Schema =  mongoose.Schema;
 
 var productCollectionSchema = new Schema({
     id_product: {
-        type: Number,
+        type: Schema.Types.ObjectId,
+        ref: 'product',
         required: true
     },
     id_collection:{
-        type: Number,
+        type: Schema.Types.ObjectId,
+        ref: 'collection',
         required: true
     }
 });

@@ -12,8 +12,12 @@ var userSchema = new Schema({
         type: String,
         required: true
     },
+    name: {
+        type: String,
+        required: true
+    },
     gender: {
-        type: Boolean,
+        type: Number,
         required: true
     },
     birthdate: {

@@ -21,8 +21,9 @@ var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 const userRoutes = require('./routes/userRoutes');
+const productRoutes = require('./routes/productRoutes');
 
 userRoutes(app);
-
+productRoutes(app);
 
 app.listen(port, hostname);

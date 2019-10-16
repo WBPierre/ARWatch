@@ -13,7 +13,7 @@ exports.getAllProducts = function(req, res){
         else {
             res.json(product);
         }
-    });
+    }).sort({viewed_times: 1});
 };
 
 exports.getProduct = function(req, res){

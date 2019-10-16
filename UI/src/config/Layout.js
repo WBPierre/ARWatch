@@ -12,7 +12,7 @@ export default {
   },
   isSmallDevice: width < 375,
   color: {
-    primary: '#100e11',
+    primary: '#fff',
     secondary: '#666666',
     button: '#1787FB'
   },

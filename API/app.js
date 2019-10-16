@@ -1,13 +1,15 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const dotenv = require('dotenv');
 mongoose.set('useCreateIndex', true);
+require('dotenv').config();
 
 const app = express();
 
 
-const hostname = "127.0.0.1";
-const port = 3000;
+const hostname = process.env.HOST;
+const port = process.env.PORT || 3000;
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
@@ -23,15 +25,16 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 const userRoutes = require('./routes/userRoutes');
 const productRoutes = require('./routes/productRoutes');
 const userAddressRoutes = require('./routes/userAddressRoutes');
+const orderRoutes = require('./routes/orderRoutes');
 const sizeRoutes = require('./routes/sizeRoutes');
-const tagRoutes = require('./routes/tagRoutes');
 
 
 userRoutes(app);
 productRoutes(app);
 userAddressRoutes(app);
 sizeRoutes(app);
-tagRoutes(app);
+orderRoutes(app);
 
-
-app.listen(port, hostname);
+app.listen(port, () => {
+    console.log('App listening on port ' + port);
+});

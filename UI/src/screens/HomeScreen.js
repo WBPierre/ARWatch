@@ -1,10 +1,13 @@
 import React from 'react';
 import { View, Image, StyleSheet, FlatList } from 'react-native';
-
+import { connect } from 'react-redux';
+import axios from 'axios';
 import NavigationOptions from '../components/NavigationOptions';
-import CardWatch from '../components/CardWatch'
-import Layout from '../config/Layout'
-import Separator from '../components/Separator'
+import CardWatch from '../components/CardWatch';
+import Separator from '../components/Separator';
+import Layout from '../config/Layout';
+
+import { fetchProducts } from '../../store/actions/products';
 
 
 class HomeScreen extends React.Component {
@@ -18,16 +21,24 @@ class HomeScreen extends React.Component {
       />
     ),
     ...NavigationOptions,
-    title: 'Accueil'
+    name: 'Accueil'
   };
 
+  state = {
+    products: []
+  }
+
+  componentDidMount = () => {
+    axios.get('https://hackaton2019watcher.herokuapp.com/products')
+      .then(res => this.setState({ products: res.data}));
+  };
 
   _renderItem ({item, index}) {
     return (
       <View>
         <CardWatch
           key={index}
-          title={item.title}
+          name={item.name}
           price={item.price}
           image={item.image}
           onPress={item.onPress}
@@ -38,29 +49,10 @@ class HomeScreen extends React.Component {
   }
 
   render () {
-
-    const api =
-    [
-      {
-        title: 'Boitier en aluminium argent de 40 mm',
-        price: 'A partir de 449€',
-        image: require('../images/watch1.jpeg'),
-        onPress: () => this.props.navigation.navigate('WatchDetail')
-      },
-      {
-        title: 'test',
-        image: require('../images/watch1.jpeg')
-      },
-      {
-        title: 'test',
-        image: require('../images/watch1.jpeg')
-      }
-    ];
-
     return(
       <View style={styles.container}>
         <FlatList
-          data={api}
+          data={this.state.products}
           renderItem={this._renderItem}
           keyExtractor={item => item.id}
         />

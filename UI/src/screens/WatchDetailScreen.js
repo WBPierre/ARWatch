@@ -1,6 +1,5 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet } from 'react-native'
-
+import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native'
 import NavigationOptions from '../components/NavigationOptions';
 import Layout from '../config/Layout'
 
@@ -14,7 +13,16 @@ class HomeScreen extends React.Component {
   static navigationOptions = {
     ...NavigationOptions,
     title: 'Detail',
-  
+    headerRight: (
+      <TouchableOpacity onPress>
+        <Icon
+          name='cart-plus'
+          type='font-awesome'
+          color='#fff'
+          size={30}
+        />
+      </TouchableOpacity>
+    ),
   };
 
   render () {

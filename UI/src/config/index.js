@@ -1,3 +1,3 @@
 const config = {
-  api: ''
+  api: 'https://hackaton2019watcher.herokuapp.com'
 }

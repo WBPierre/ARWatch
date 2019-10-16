@@ -6,23 +6,24 @@ import Layout from '../config/Layout'
 
 type props {
   image: string
-  title: string
+  name: string
   price: string
 }
 */
 
 const CardWatch = (props) => {
+  console.log(props.image)
   return(
     <View style={styles.container}>
       <TouchableOpacity onPress={props.onPress}>
         <Image
-          source={props.image}
+          source={{ uri:props.image }}
           style={styles.watch}
         />
       </TouchableOpacity>
       <View style={styles.textContainer}>
-        <Text style={styles.title}>{props.title}</Text>
-        <Text style={styles.price}>{props.price}</Text>
+        <Text style={styles.name}>{props.name}</Text>
+        <Text style={styles.price}>{props.price}€</Text>
       </View>
     </View>
   )
@@ -54,7 +55,7 @@ const styles = StyleSheet.create({
     alignItems: 'center'
 
   },
-  title: {
+  name: {
     flexWrap: 'wrap',
     fontWeight: 'bold',
     textAlign: 'center'

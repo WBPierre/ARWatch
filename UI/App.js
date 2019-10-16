@@ -31,8 +31,11 @@ const AppContainer = createAppContainer(AppNavigator);
 
 class App extends React.Component {
   render(){
+
+    const store = configureStore()
+
     return(
-      <Provider store={configureStore()}>
+      <Provider store={store}>
         <AppContainer/>
       </Provider>
     )

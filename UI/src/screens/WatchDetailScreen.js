@@ -1,22 +1,20 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet, Button } from 'react-native'
+import { View, Text, Image, StyleSheet } from 'react-native'
 
 import NavigationOptions from '../components/NavigationOptions';
 import Layout from '../config/Layout'
-import { Icon } from 'react-native-elements'
 
-class WatchDetailScreen extends React.Component {
+import { Button } from 'react-native-elements';
+import Icon from 'react-native-vector-icons/FontAwesome';
+
+
+
+class HomeScreen extends React.Component {
 
   static navigationOptions = {
     ...NavigationOptions,
     title: 'Detail',
-    headerRight: (
-      <Icon
-        name='sc-telegram'
-        type='evilicon'
-        color='#fff'
-      />
-    ),
+  
   };
 
   render () {
@@ -41,12 +39,32 @@ class WatchDetailScreen extends React.Component {
             Origin: Imported
           </Text>
         </View>
+
+        <View style={styles.buttonContainer}>
+          <Button
+              title=" Button  "
+              style={styles.buttonStyle}/>
+          <Button
+              title=" Button  "
+              style={styles.buttonStyle}/>
+        </View>
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
+
+  buttonStyle: {
+  height: 40,
+      width:160,
+      borderRadius:10,
+      marginLeft :5,
+      marginRight:5
+
+},
+
+
   container: {
     flex: 1,
     margin: Layout.marginL,
@@ -70,25 +88,42 @@ const styles = StyleSheet.create({
   textContainer: {
     paddingVertical: Layout.marginL
   },
+
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+
   title: {
     fontWeight: 'bold',
     fontSize: 25,
     letterSpacing: 2,
+    marginLeft: '5%',
+    marginRight: '5%',
+    alignItems: 'center'
   },
   price: {
+    marginLeft: '5%',
+    marginRight: '5%',
+    alignItems: 'center',
     fontWeight: '100',
-    fontSize: 15
+    fontSize: 33
   },
   presentation: {
     paddingVertical: Layout.marginL,
     color: Layout.color.secondary,
     fontWeight: '100',
-    textAlign: 'justify'
+    textAlign: 'justify',
+    marginLeft: '10%',
+    marginRight: '10%'
   },
   description: {
+    marginLeft: '5%',
+    marginRight: '5%',
+    alignItems: 'center',
     borderBottomWidth: 1,
     borderColor: '#000'
   }
 });
 
-export default WatchDetailScreen;
+export default HomeScreen;

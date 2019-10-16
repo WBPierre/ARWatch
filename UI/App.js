@@ -6,7 +6,7 @@ import { createStackNavigator} from 'react-navigation-stack';
 import { Provider } from 'react-redux';
 
 import HomeScreen from './src/screens/HomeScreen';
-import WatchDetail from './src/screens/WatchDetailScreen';
+import WatchDetailScreen from './src/screens/WatchDetailScreen';
 import configureStore from './store/configureStore'
 
 
@@ -17,7 +17,7 @@ const AppNavigator = createDrawerNavigator(
         screen: HomeScreen,
       },
       WatchDetail: {
-        screen: WatchDetail
+        screen: WatchDetailScreen
       },
     }),
   }, {

@@ -3,14 +3,20 @@ import { View, Text, Image, StyleSheet, Button } from 'react-native'
 
 import NavigationOptions from '../components/NavigationOptions';
 import Layout from '../config/Layout'
+import { Icon } from 'react-native-elements'
 
-
-class HomeScreen extends React.Component {
+class WatchDetailScreen extends React.Component {
 
   static navigationOptions = {
     ...NavigationOptions,
     title: 'Detail',
-  
+    headerRight: (
+      <Icon
+        name='sc-telegram'
+        type='evilicon'
+        color='#fff'
+      />
+    ),
   };
 
   render () {
@@ -85,4 +91,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default HomeScreen;
+export default WatchDetailScreen;

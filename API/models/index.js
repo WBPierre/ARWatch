@@ -4,6 +4,7 @@
 module.exports = {
     User: require('./userModel'),
     collection_user: require('./collectionUserModel'),
+    product_collection: require('./productCollectionModel'),
     collection: require('./collectionModel'),
     order: require('./orderModel'),
     product: require('./productModel'),
@@ -12,4 +13,5 @@ module.exports = {
     size: require('./sizeModel'),
     tags: require('./tagsModel'),
     user_address: require('./userAddressModel'),
+
 };

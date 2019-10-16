@@ -33,12 +33,28 @@ exports.get_address_by_user = async function(req, res) {
 };
 
 exports.update_address = async function(req, res) {
-    UserAddress.findOne({id: req.body.id}, function(err, product){
+    UserAddress.findOne({_id: req.params.id}, function(err, address){
         if (err) {
             res.send(err);
         }
         else {
-            res.json(product);
+            address.street = req.body.street;
+            address.city = req.body.city;
+            address.country = req.body.country;
+            address.save();
+            res.json(address);
+        }
+    });
+};
+
+exports.delete_address = async function(req, res) {
+    UserAddress.findOne({_id: req.params.id}, function(err, address){
+        if (err) {
+            res.send(err);
+        }
+        else {
+            address.remove();
+            res.json('success');
         }
     });
 };

@@ -19,21 +19,13 @@ var productSchema = new Schema({
         type: String,
         required: true,
     },
-    image: {
+    picture: {
         type: String,
         required: true,
     },
     active: {
         type: Boolean,
         default: true,
-    },
-    sizes: {
-        type: Array,
-        default: [],
-    },
-    tags: {
-        type: Array,
-        default: []
     }
 });
 module.exports = mongoose.model('product', productSchema);

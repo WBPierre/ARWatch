@@ -11,6 +11,22 @@ var userSchema = new Schema({
     password: {
         type: String,
         required: true
+    },
+    name: {
+        type: String,
+        required: true
+    },
+    gender: {
+        type: Number,
+        required: true
+    },
+    birthdate: {
+        type: String,
+        required: true
+    },
+    id_stripe: {
+        type: String,
+        required: true
     }
 });
 module.exports = mongoose.model('Users', userSchema);

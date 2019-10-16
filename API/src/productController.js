@@ -1,4 +1,7 @@
 Product = require('../models/productModel');
+ProductSize = require('../models/productSizeModel');
+ProductTags = require('../models/productTagsModel');
+
 const jwt = require('jsonwebtoken');
 const config = require('../config/secrets');
 

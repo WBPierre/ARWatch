@@ -5,7 +5,7 @@ module.exports = function(app){
         .get(products.getAllProducts);
 
     app.route('/products/:productId')
-        .post(products.getProduct);
+        .get(products.getProduct);
 
 };
 

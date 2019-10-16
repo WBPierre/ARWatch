@@ -11,14 +11,18 @@ class HomeScreen extends React.Component {
 
   static navigationOptions = {
     drawerLabel: 'Home',
-    drawerIcon: ({ tintColor: tintColor }) => (
-      <Image
-        source={require('../images/test.png')}
-        style={[styles.icon, { tintColor: tintColor }]}
-      />
+    headerTitle: (
+      <Image style={{ width: 85, height: 55 }} source={require('../images/logo.png')}/>
     ),
     ...NavigationOptions,
-    name: 'Accueil'
+    name: 'Accueil',
+    headerStyle: {
+      backgroundColor: '#fff',
+      shadowColor: 'transparent',
+      elevation: 0,
+      borderBottomColor: 'transparent',
+      borderBottomWidth: 0,
+    }
   };
 
   constructor(props) {
@@ -61,7 +65,6 @@ class HomeScreen extends React.Component {
           renderItem={this._renderItem.bind(this)}
           keyExtractor={item => item.id}
         />
-        <Button onPress={this.handlePress} title={"test"} />
       </View>
     );
   }

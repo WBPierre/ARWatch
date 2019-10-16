@@ -1,10 +1,9 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, Text, Image, StyleSheet, ScrollView } from 'react-native'
 import NavigationOptions from '../components/NavigationOptions';
 import Layout from '../config/Layout'
 
 import { Button } from 'react-native-elements';
-import Icon from 'react-native-vector-icons/FontAwesome';
 
 
 /*
@@ -37,7 +36,7 @@ class WatchDetailScreen extends React.Component {
     const { item } = this.props.navigation.state.params;
 
     return(
-      <View style={styles.container}>
+      <ScrollView style={styles.container}>
         <View style={styles.imageContainer}>
           <Image
             source={{uri: item.image}}
@@ -49,32 +48,25 @@ class WatchDetailScreen extends React.Component {
           <Text style={styles.price}>{item.price}</Text>
           <Text style={styles.presentation}>{item.description}</Text>
         </View>
-
         <View style={styles.buttonContainer}>
+          <Button title="Button" buttonStyle={styles.buttonStyle} />
           <Button
-              title=" Button  "
-              style={styles.buttonStyle}/>
-          <Button
-              title=" Button  "
-              style={styles.buttonStyle}/>
+              title="Button"
+              buttonStyle={styles.buttonStyle}/>
         </View>
-      </View>
+      </ScrollView>
     );
   }
 }
 
 const styles = StyleSheet.create({
-
   buttonStyle: {
-  height: 40,
-      width:160,
-      borderRadius:10,
-      marginLeft :5,
-      marginRight:5
-
-},
-
-
+    height: 40,
+    width:100,
+    marginHorizontal: 2*Layout.marginL,
+    borderRadius:10,
+    backgroundColor: '#000'
+  },
   container: {
     flex: 1,
     margin: Layout.marginL,
@@ -96,25 +88,20 @@ const styles = StyleSheet.create({
     height: 400,
   },
   textContainer: {
-    paddingVertical: Layout.marginL
+    paddingVertical: Layout.marginL,
+    paddingHorizontal: 4*Layout.marginL
   },
-
   buttonContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
   },
-
   title: {
     fontWeight: 'bold',
     fontSize: 25,
     letterSpacing: 2,
-    marginLeft: '5%',
-    marginRight: '5%',
     alignItems: 'center'
   },
   price: {
-    marginLeft: '5%',
-    marginRight: '5%',
     alignItems: 'center',
     fontWeight: '100',
     fontSize: 33
@@ -124,12 +111,8 @@ const styles = StyleSheet.create({
     color: Layout.color.secondary,
     fontWeight: '100',
     textAlign: 'justify',
-    marginLeft: '10%',
-    marginRight: '10%'
   },
   description: {
-    marginLeft: '5%',
-    marginRight: '5%',
     alignItems: 'center',
     borderBottomWidth: 1,
     borderColor: '#000'

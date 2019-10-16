@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet, Button } from 'react-native'
+import { View, Text, Image, StyleSheet } from 'react-native'
 
 import NavigationOptions from '../components/NavigationOptions';
 import Layout from '../config/Layout'
@@ -10,7 +10,6 @@ class HomeScreen extends React.Component {
   static navigationOptions = {
     ...NavigationOptions,
     title: 'Detail',
-  
   };
 
   render () {

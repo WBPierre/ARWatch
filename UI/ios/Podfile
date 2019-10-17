@@ -29,6 +29,8 @@ target 'UI' do
   # your other libraries will follow here!
 
   pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
+  pod 'Stripe'
+  pod 'tipsi-stripe', :path => '../node_modules/tipsi-stripe'
 
 end
 

@@ -63,6 +63,10 @@ PODS:
     - React/RCTBlob
   - RNVectorIcons (6.6.0):
     - React
+  - Stripe (14.0.0)
+  - tipsi-stripe (7.5.1):
+    - React
+    - Stripe (~> 14.0.0)
   - yoga (0.59.3.React)
 
 DEPENDENCIES:
@@ -84,11 +88,14 @@ DEPENDENCIES:
   - React/RCTVibration (from `../node_modules/react-native`)
   - React/RCTWebSocket (from `../node_modules/react-native`)
   - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
+  - Stripe
+  - tipsi-stripe (from `../node_modules/tipsi-stripe`)
   - yoga (from `../node_modules/react-native/ReactCommon/yoga/Yoga.podspec`)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - boost-for-react-native
+    - Stripe
 
 EXTERNAL SOURCES:
   DoubleConversion:
@@ -101,6 +108,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native"
   RNVectorIcons:
     :path: "../node_modules/react-native-vector-icons"
+  tipsi-stripe:
+    :path: "../node_modules/tipsi-stripe"
   yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga/Yoga.podspec"
 
@@ -111,8 +120,10 @@ SPEC CHECKSUMS:
   glog: aefd1eb5dda2ab95ba0938556f34b98e2da3a60d
   React: b52fdb80565505b7e4592b313a38868f5df51641
   RNVectorIcons: 0bb4def82230be1333ddaeee9fcba45f0b288ed4
+  Stripe: db29ad197c74aca6fb981e4e8355cf7ebd0fca5a
+  tipsi-stripe: 3e0073c7eec0b2bfd1d1d5736d843c22e3024485
   yoga: 1a492113f66a35e9e583bb0434f4b8cc668dd839
 
-PODFILE CHECKSUM: 1e3833292177d4dc13ff3262d9e5e1db014552a8
+PODFILE CHECKSUM: c9827f4c70e05a13d1023b1a5d9ba00d3da03537
 
 COCOAPODS: 1.7.5

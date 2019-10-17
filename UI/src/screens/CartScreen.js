@@ -66,30 +66,31 @@ class CartScreen extends React.Component {
         );
     }
 
+    setModalVisible(visible) {
+        this.setState({paymodalModalVisible: visible});
+    }
+
     const  = stripe.setOptions({ publishableKey: 'pk_test_t37blAfCMrTelgLdJH5B1QBq'});
 
     handlePayButtonPress = () => {
 
-        console.log(this.props.isConnected);
-        this.setState({ paymodalModalVisible: true });
+        console.log(this.props);
 
-        /*
-        return stripe
-          .paymentRequestWithCardForm()
-          .then(stripeTokenInfo => {
-              axios.post('https://hackaton2019watcher.herokuapp.com/order')
-              console.warn('Token created', { stripeTokenInfo });
-          })
-          .catch(error => {
-              console.warn('Payment failed', { error });
-          });
-
-          */
+        if(this.props.isConnected.isConnected) {
+            return stripe
+              .paymentRequestWithCardForm()
+              .then(stripeTokenInfo => {
+                  axios.post('https://hackaton2019watcher.herokuapp.com/order/pay', {stripeTokenInfo})
+                  console.warn('Token created', {stripeTokenInfo});
+              })
+              .catch(error => {
+                  console.warn('Payment failed', {error});
+              });
+        }
+        else {
+            this.setModalVisible(true)
+        }
     };
-
-    closeModal = () => {
-        this.setState({ payModalVisible: false })
-    }
 
     render () {
         return(
@@ -108,12 +109,12 @@ class CartScreen extends React.Component {
                   </View>
                   <Button
                     buttonStyle={styles.buttonStyle}
-                    title="Pay"
+                    title={this.props.isConnected ? "Pay" : "You first need to login"}
                     onPress={this.handlePayButtonPress}
                     disabled={this.state.isPaymentPending}
                   />
               </View>
-              <LoginModal isVisible={this.state.paymodalModalVisible} onCloseModal={this.closeModal}/>
+              <LoginModal isVisible={this.state.paymodalModalVisible} setModalVisible={() => this.setModalVisible(false)}/>
           </View>
         );
     }

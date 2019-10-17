@@ -25,8 +25,8 @@ class LoginModal extends React.Component {
         email: this.state.email,
         password: this.state.password
       }).then(res => {
-        isConnected(res.data.token);
-        this.props.onCloseModal();
+          this.props.isConnected(res.data.token);
+          this.props.setModalVisible();
       })
   }
 

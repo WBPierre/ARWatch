@@ -1,11 +1,11 @@
 
 import { combineReducers } from 'redux';
 import products from './productsReducer';
-import user from './user';
+import isConnected from './user';
 
 const rootReducer = combineReducers({
   products,
-  user
+  isConnected
 })
 
 export default rootReducer

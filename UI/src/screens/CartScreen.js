@@ -38,10 +38,6 @@ class CartScreen extends React.Component {
         this.setState({ products: this.props.products.products});
     }
 
-    componentDidUpdate (prevProps, prevState, snapshot) {
-        console.log(prevProps);
-    }
-
     _renderItem ({item, index}) {
         return (
           <View key={index} style={styles.itemContainer}>

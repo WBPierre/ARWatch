@@ -41,9 +41,7 @@ class CustomWatchScreen extends React.Component {
   }
 
   componentDidMount () {
-    axios.get('https://hackaton2019watcher.herokuapp.com/images').then(res => this.setState({ allWatchComponents: res.data }, () => {
-      console.log(this.state.allWatchComponents);
-    }));
+    axios.get('https://hackaton2019watcher.herokuapp.com/images').then(res => this.setState({ allWatchComponents: res.data}));
   }
 
   _carousel;
@@ -74,25 +72,23 @@ class CustomWatchScreen extends React.Component {
     });
   };
 
-  handleStepPress = (category) => {
-    switch(category){
-      case 'first': {
-        this.setState({ watchComponent: [...this.state.watchComponent, this.state.allWatchComponents[0][this._carousel.currentIndex]] }, () => {
-          this.resetCarousel()
-        });
-      }
-      case 'second': {
-        this.setState({ watchComponent: [...this.state.watchComponent, this.state.allWatchComponents[1][this._carousel.currentIndex]] }, () => {
-          this.resetCarousel();
-        });
-      }
-    }
+  handleAddBraceletPress = () => {
+    this.setState({ watchComponent: [...this.state.watchComponent, this.state.allWatchComponents[0][this._carousel.currentIndex]] }, () => {
+      this.resetCarousel();
+    });
+  }
+
+  handleAddDialPress = () => {
+    this.setState({ watchComponent: [...this.state.watchComponent, this.state.allWatchComponents[1][this._carousel.currentIndex]] }, () => {
+      this.resetCarousel();
+    });
   }
 
   handleSubmitPress = () => {
-    this.setState({ watchComponent: [...this.state.watchComponent, bracelet[this._carousel.currentIndex]]},
+    this.setState({ watchComponent: [...this.state.watchComponent, this.state.allWatchComponents[2][this._carousel.currentIndex]]},
       () => {
       const watchComponent = this.state.watchComponent;
+        console.log(this.state.watchComponent);
         this.props.navigation.navigate('Cart', { watchComponent})
 
       });
@@ -113,7 +109,7 @@ class CustomWatchScreen extends React.Component {
               label="Bracelet"
               nextBtnStyle={styles.nextButton}
               nextBtnTextStyle={styles.nextButtonText}
-              onNext={() => this.handleStepPress('first')}
+              onNext={this.handleAddBraceletPress}
             >
               <Carousel
                 ref={this.saveCarouselRef}
@@ -152,8 +148,9 @@ class CustomWatchScreen extends React.Component {
               nextBtnStyle={styles.nextButton}
               nextBtnTextStyle={styles.nextButtonText}
               onPrevious={this.handlePreviousPress}
-              onNext={() => this.handleStepPress('second')}
+              onNext={this.handleAddDialPress}
             >
+              {this.state.watchComponent[0] && <Image source={{uri: this.state.watchComponent[0].link }} style={styles.watchBracelet} />}
               <Carousel
                 ref={this.saveCarouselRef}
                 data={this.state.allWatchComponents[1]}
@@ -184,6 +181,7 @@ class CustomWatchScreen extends React.Component {
               />
             </ProgressStep>
             <ProgressStep
+              style={styles.containerImage}
               label="Second Step"
               previousBtnStyle={styles.nextButton}
               previousBtnTextStyle={styles.nextButtonText}
@@ -192,6 +190,8 @@ class CustomWatchScreen extends React.Component {
               onPrevious={this.handlePreviousPress}
               onSubmit={this.handleSubmitPress.bind(this)}
             >
+              {this.state.watchComponent[0] && <Image source={{uri: this.state.watchComponent[0].link }} style={styles.watchBracelet} />}
+              {this.state.watchComponent[1] && <Image source={{uri: this.state.watchComponent[1].link }} style={styles.watchBracelet} />}
               <Carousel
                 ref={this.saveCarouselRef}
                 data={this.state.allWatchComponents[2]}
@@ -231,6 +231,9 @@ class CustomWatchScreen extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  containerImage: {
+    position: 'relative'
+  },
   nextButton: {
     width: 100,
     backgroundColor: '#000',
@@ -246,6 +249,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   imageWatch: {
+    width: 100,
+    height: 500
+  },
+  watchBracelet: {
+    position: 'absolute',
+    left: 157,
     width: 100,
     height: 500
   }

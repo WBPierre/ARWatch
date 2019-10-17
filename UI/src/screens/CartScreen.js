@@ -1,17 +1,37 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image, FlatList } from 'react-native'
 import { connect } from 'react-redux';
-import { Button } from 'react-native-elements';
+import { Button, Icon } from 'react-native-elements'
 
 import NavigationOptions from '../components/NavigationOptions';
 import Layout from '../config/Layout'
+import stripe from 'tipsi-stripe'
 
 
 class CartScreen extends React.Component {
 
-    static navigationOptions = {
-        ...NavigationOptions,
-        title: 'Panier',
+    static navigationOptions = ({ navigation }) => {
+        return {
+            ...NavigationOptions,
+            title: 'Panier',
+            headerLeft: (
+              <Icon
+                onPress={() => navigation.openDrawer()}
+                name='bars'
+                type='font-awesome'
+                color='#000'
+                size={30}
+              />
+            ),
+            headerStyle: {
+                backgroundColor: '#fff',
+                shadowColor: 'transparent',
+                elevation: 0,
+                borderBottomColor: 'transparent',
+                borderBottomWidth: 0,
+                marginLeft: Layout.marginL
+            }
+        }
     };
     constructor(props){
         super(props);
@@ -22,8 +42,11 @@ class CartScreen extends React.Component {
     }
 
     componentDidMount  () {
-        console.log(this.props.navigation.state.params);
         this.setState({ products: this.props.products.products});
+    }
+
+    componentDidUpdate (prevProps, prevState, snapshot) {
+        console.log(prevProps);
     }
 
     _renderItem ({item, index}) {
@@ -53,10 +76,24 @@ class CartScreen extends React.Component {
         );
     }
 
+    const  = stripe.setOptions({ publishableKey: 'pk_test_t37blAfCMrTelgLdJH5B1QBq'});
+
+    requestPayment = () => {
+        return stripe
+          .paymentRequestWithCardForm()
+          .then(stripeTokenInfo => {
+              console.warn('Token created', { stripeTokenInfo });
+          })
+          .catch(error => {
+              console.warn('Payment failed', { error });
+          });
+    };
+
     render () {
 
         return(
           <View style={styles.container}>
+              {this.state.products.length === 0 && <Image source={require('../images/empty.png')} style={styles.emptyCart} />}
               <FlatList
                 data={this.state.products}
                 renderItem={this._renderItem.bind(this)}
@@ -68,8 +105,11 @@ class CartScreen extends React.Component {
                       <Text style={styles.totalCartTitle}>Total Panier : </Text>
                       <Text style={styles.totalCartPrice}>{this.state.totalCart}€</Text>
                   </View>
-                  <Button title="Payer" buttonStyle={styles.buttonStyle}/>
-
+                  <Button
+                    title="Pay"
+                    onPress={this.requestPayment}
+                    disabled={this.state.isPaymentPending}
+                  />
               </View>
           </View>
         );
@@ -143,6 +183,10 @@ const styles = StyleSheet.create({
     },
     buttonStyle: {
         backgroundColor: '#000'
+    },
+    emptyCart: {
+        width: Layout.window.width,
+        height: Layout.window.height - 350,
     }
 });
 

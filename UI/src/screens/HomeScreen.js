@@ -71,6 +71,7 @@ class HomeScreen extends React.Component {
           name={item.name}
           price={item.price}
           image={item.image}
+          size={item.size}
           onPress={() => this.handlePress(item)}
         />
       </View>

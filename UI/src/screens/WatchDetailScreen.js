@@ -13,6 +13,7 @@ type props {
   image: string
   name: string
   price: string
+  size: Array<string>
 }
 */
 
@@ -54,6 +55,7 @@ class WatchDetailScreen extends React.Component {
 
     const { item } = this.props.navigation.state.params;
 
+    console.log(item);
     return(
       <ScrollView style={styles.container}>
         <View style={styles.imageContainer}>
@@ -65,6 +67,7 @@ class WatchDetailScreen extends React.Component {
         <View style={styles.textContainer}>
           <Text style={styles.title}>{item.name}</Text>
           <Text style={styles.price}>{item.price}€</Text>
+
           <Text style={styles.presentation}>{item.description}</Text>
         </View>
         <View style={styles.buttonContainer}>

@@ -67,24 +67,32 @@ class CustomWatchScreen extends React.Component {
     );
   }
 
+  resetCarousel = () => {
+    this.setState({ activeIndexCarousel: 0 }, () => {
+      this._carousel.snapToItem(0);
+    });
+  }
+
   handleSnapToItem = () => {
     this.setState({ activeIndexCarousel: this._carousel.currentIndex });
-  }
+  };
+
+  handlePreviousPress = () => {
+    this.setState({ watchComponent: this.state.watchComponent.slice(0, this.state.watchComponent.length - 1)}, () => {
+      this.resetCarousel();
+    });
+  };
 
   handleStepPress = (category) => {
     switch(category){
       case 'first': {
         this.setState({ watchComponent: [...this.state.watchComponent, bracelet[this._carousel.currentIndex]] }, () => {
-          this.setState({ activeIndexCarousel: 0 }, () => {
-            this._carousel.snapToItem(0);
-          });
+          this.resetCarousel()
         });
       }
       case 'second': {
         this.setState({ watchComponent: [...this.state.watchComponent, dial[this._carousel.currentIndex]] }, () => {
-          this.setState({ activeIndexCarousel: 0 }, () => {
-            this._carousel.snapToItem(0);
-          });
+          this.resetCarousel();
         });
       }
     }
@@ -94,7 +102,8 @@ class CustomWatchScreen extends React.Component {
     this.setState({ watchComponent: [...this.state.watchComponent, bracelet[this._carousel.currentIndex]]},
       () => {
       const watchComponent = this.state.watchComponent;
-      axios.post(`${config.api}/auth`, { watchComponent }).then(() => this.props.navigation.navigate('Cart', { watchComponent }));
+        this.props.navigation.navigate('Cart', { watchComponent})
+
       });
   }
 
@@ -149,6 +158,7 @@ class CustomWatchScreen extends React.Component {
             previousBtnTextStyle={styles.nextButtonText}
             nextBtnStyle={styles.nextButton}
             nextBtnTextStyle={styles.nextButtonText}
+            onPrevious={this.handlePreviousPress}
             onNext={() => this.handleStepPress('second')}
           >
             <Carousel
@@ -186,6 +196,7 @@ class CustomWatchScreen extends React.Component {
             previousBtnTextStyle={styles.nextButtonText}
             nextBtnStyle={styles.nextButton}
             nextBtnTextStyle={styles.nextButtonText}
+            onPrevious={this.handlePreviousPress}
             onSubmit={this.handleSubmitPress.bind(this)}
           >
             <Carousel

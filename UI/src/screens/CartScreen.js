@@ -39,6 +39,7 @@ class CartScreen extends React.Component {
     }
 
     _renderItem ({item, index}) {
+        this.setState({totalCart: this.state.totalCart += item.price})
         return (
           <View key={index} style={styles.itemContainer}>
               <Image
@@ -69,6 +70,7 @@ class CartScreen extends React.Component {
 
     handlePayButtonPress = () => {
 
+        console.log(this.props.isConnected);
         this.setState({ paymodalModalVisible: true });
 
         /*
@@ -89,10 +91,7 @@ class CartScreen extends React.Component {
         this.setState({ payModalVisible: false })
     }
 
-
-
     render () {
-
         return(
           <View style={styles.container}>
               {this.state.products.length === 0 && <Image source={require('../images/empty.png')} style={styles.emptyCart} />}
@@ -105,7 +104,7 @@ class CartScreen extends React.Component {
               <View style={styles.totalCart}>
                   <View style={{ flexDirection: 'row', paddingVertical: Layout.marginL }}>
                       <Text style={styles.totalCartTitle}>Total Panier : </Text>
-                      <Text style={styles.totalCartPrice}>{this.state.totalCart}€</Text>
+                      <Text style={styles.totalCartPrice}>{this.state.products.length < 2 ? this.state.totalCart : this.state.totalCart/2}€</Text>
                   </View>
                   <Button
                     buttonStyle={styles.buttonStyle}
@@ -194,6 +193,6 @@ const styles = StyleSheet.create({
     }
 });
 
-const mapStateToProps = ({ products }) => ({ products });
+const mapStateToProps = ({ products, isConnected }) => ({ products, isConnected });
 
 export default connect(mapStateToProps, null)(CartScreen);

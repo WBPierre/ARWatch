@@ -65,13 +65,12 @@ class HomeScreen extends React.Component {
 
   _renderItem ({item, index}) {
     return (
-      <View>
+      <View key={index}>
         <CardWatch
-          key={index}
           name={item.name}
           price={item.price}
           image={item.image}
-          size={item.size}
+          sizes={item.sizes}
           onPress={() => this.handlePress(item)}
         />
       </View>

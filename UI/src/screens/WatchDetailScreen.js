@@ -55,7 +55,6 @@ class WatchDetailScreen extends React.Component {
 
     const { item } = this.props.navigation.state.params;
 
-    console.log(item);
     return(
       <ScrollView style={styles.container}>
         <View style={styles.imageContainer}>
@@ -67,14 +66,15 @@ class WatchDetailScreen extends React.Component {
         <View style={styles.textContainer}>
           <Text style={styles.title}>{item.name}</Text>
           <Text style={styles.price}>{item.price}€</Text>
-
+          {item.sizes.map((size, index) => (
+            <View key={index} style={styles.sizeContainer}>
+              <Text style={styles.size}>{size.name}</Text>
+            </View>
+          ))}
           <Text style={styles.presentation}>{item.description}</Text>
         </View>
         <View style={styles.buttonContainer}>
           <Button title="Button" buttonStyle={styles.buttonStyle} />
-          <Button
-              title="Button"
-              buttonStyle={styles.buttonStyle}/>
         </View>
       </ScrollView>
     );
@@ -138,6 +138,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderBottomWidth: 1,
     borderColor: '#000'
+  },
+  sizeContainer: {
+    marginTop: Layout.marginL,
+    width: 43,
+    borderWidth: 1,
+    padding: Layout.marginL,
+  },
+  size: {
+    textAlign: 'center',
+    fontWeight: 'bold',
+    flexDirection: 'column'
   }
 });
 

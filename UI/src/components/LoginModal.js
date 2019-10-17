@@ -1,43 +1,33 @@
 import React from 'react';
 import { Modal, View, StyleSheet, Image } from 'react-native';
-import { Input, Icon, Button } from 'react-native-elements'
+import { Input, Icon, Button } from 'react-native-elements';
+import { connect } from 'react-redux';
+
 
 import Layout from '../config/Layout';
 import axios from 'axios'
+import { isConnected } from '../store/actions/user';
 
 class LoginModal extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      form: {
         email: '',
         password: '',
-      }
     }
-
-    this.onChange = this.onChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  onChange = (e) => {
-    this.setState({
-      form: { ...this.state.form, [e.target.name]: e.target.value}
-    });
   }
 
   handleSubmit(event) {
     event.preventDefault();
-
-    const { email, password} = this.state;
-
-    if(email.length >= 4 && password.length >= 4) {
       axios.post('https://hackaton2019watcher.herokuapp.com/users/login', {
-        email: this.state.form.email,
-        password: this.state.form.password
+        email: this.state.email,
+        password: this.state.password
       }).then(res => {
+        isConnected(res.data.token);
+        this.props.onCloseModal();
       })
-    }
   }
 
 
@@ -50,46 +40,57 @@ class LoginModal extends React.Component {
         onRequestClose={() => {
           Alert.alert('Modal has been closed.');
         }}>
-        <View style={{ flex: 1, marginTop: '50%' }}>
-          <Image source={require('../images/logo.png')} style={styles.logo}/>
-          <View style={styles.container}>
-            <Input
-              name='email'
-              containerStyle={styles.containerInput}
-              leftIconContainerStyle={styles.iconStyle}
-              labelStyle={styles.labelStyle}
-              placeholder='EMAIL'
-              leftIcon={
-                <Icon
-                  name='user'
-                  type='font-awesome'
-                  color='#000'
-                  size={15}
-                />
-              }
-            />
-            <Input
-              name='password'
-              onChange={this.onChange}
-              value={this.state.password}
-              containerStyle={styles.containerInput}
-              leftIconContainerStyle={styles.iconStyle}
-              labelStyle={styles.labelStyle}
-              placeholder='PASSWORD'
-              leftIcon={
-                <Icon
-                  name='lock'
-                  type='font-awesome'
-                  color='#000'
-                  size={15}
-                />
-              }
-            />
-            <Button
-              buttonStyle={styles.buttonStyle}
-              title="Login"
-              onPress={this.handleSubmit}
-            />
+        <View style={{ flex: 1}}>
+          <Icon
+            name='times'
+            type='font-awesome'
+            color='#000'
+            size={35}
+            style={styles.exit}
+          />
+          <View style={{ flex: 1, marginTop: '50%' }}>
+            <Image source={require('../images/logo.png')} style={styles.logo}/>
+            <View style={styles.container}>
+              <Input
+                name='email'
+                onChangeText={(value) => this.setState({ email: value })}
+                value={this.state.email}
+                containerStyle={styles.containerInput}
+                leftIconContainerStyle={styles.iconStyle}
+                labelStyle={styles.labelStyle}
+                placeholder='EMAIL'
+                leftIcon={
+                  <Icon
+                    name='user'
+                    type='font-awesome'
+                    color='#000'
+                    size={15}
+                  />
+                }
+              />
+              <Input
+                name='password'
+                onChangeText={(value) => this.setState({ password: value })}
+                value={this.state.password}
+                containerStyle={styles.containerInput}
+                leftIconContainerStyle={styles.iconStyle}
+                labelStyle={styles.labelStyle}
+                placeholder='PASSWORD'
+                leftIcon={
+                  <Icon
+                    name='lock'
+                    type='font-awesome'
+                    color='#000'
+                    size={15}
+                  />
+                }
+              />
+              <Button
+                buttonStyle={styles.buttonStyle}
+                title="Login"
+                onPress={this.handleSubmit.bind(this)}
+              />
+            </View>
           </View>
         </View>
       </Modal>
@@ -125,7 +126,18 @@ const styles = StyleSheet.create({
     height: 50,
     borderRadius: Layout.radius
   },
+  exit: {
+    position: 'absolute',
+    right: 0,
+    top: Layout.marginL
+  }
 })
 
 
-export default LoginModal;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    isConnected: (token) => dispatch(isConnected(token))
+  }
+};
+
+export default connect(null, mapDispatchToProps)(LoginModal);

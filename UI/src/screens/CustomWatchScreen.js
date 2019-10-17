@@ -88,7 +88,6 @@ class CustomWatchScreen extends React.Component {
     this.setState({ watchComponent: [...this.state.watchComponent, this.state.allWatchComponents[2][this._carousel.currentIndex]]},
       () => {
       const watchComponent = this.state.watchComponent;
-        console.log(this.state.watchComponent);
         this.props.navigation.navigate('Cart', { watchComponent})
 
       });
@@ -182,7 +181,7 @@ class CustomWatchScreen extends React.Component {
             </ProgressStep>
             <ProgressStep
               style={styles.containerImage}
-              label="Second Step"
+              label="Case"
               previousBtnStyle={styles.nextButton}
               previousBtnTextStyle={styles.nextButtonText}
               nextBtnStyle={styles.nextButton}

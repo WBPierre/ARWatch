@@ -100,7 +100,6 @@ class HomeScreen extends React.Component {
           data={this.state.products}
           renderItem={this._renderItem.bind(this)}
           keyExtractor={item => item.id}
-          ItemSeparatorComponent={this.FlatListItemSeparator}
         />
         <Button title='Create my own watch' buttonStyle={styles.button} onPress={this.handleCreateCustomWatch}/>
       </View>

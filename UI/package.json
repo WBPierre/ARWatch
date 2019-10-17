@@ -19,6 +19,7 @@
     "react-native-screens": "^2.0.0-alpha.4",
     "react-native-simple-stepper": "^3.0.0",
     "react-native-snap-carousel": "^3.8.2",
+    "react-native-swipeout": "^2.3.6",
     "react-native-vector-icons": "^6.6.0",
     "react-navigation": "^4.0.10",
     "react-navigation-drawer": "^2.2.2",
@@ -26,6 +27,7 @@
     "react-redux": "^7.1.1",
     "react-viro": "2.16.0",
     "redux": "^4.0.4",
+    "redux-persist": "^6.0.0",
     "redux-thunk": "^2.3.0",
     "tipsi-stripe": "^7.5.1"
   },

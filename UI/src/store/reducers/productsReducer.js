@@ -1,4 +1,4 @@
-import { INSERT_PRODUCT_SUCCESS, INSERT_PRODUCT_FAILURE } from '../constants';
+import { INSERT_PRODUCT_SUCCESS, INSERT_PRODUCT_FAILURE, REMOVE_PRODUCT_SUCCESS } from '../constants'
 
 const initialState = {
   products: [],
@@ -15,6 +15,8 @@ export default function productsReducer (state = initialState, action) {
       return {
         ...state,
       }
+    case REMOVE_PRODUCT_SUCCESS:
+
     default:
       return state
   }

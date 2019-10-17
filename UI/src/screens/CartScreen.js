@@ -2,12 +2,19 @@ import React from 'react';
 import { View, Text, StyleSheet, Image, FlatList } from 'react-native'
 import { connect } from 'react-redux';
 import { Button, Icon } from 'react-native-elements'
+import Swipeout from 'react-native-swipeout';
 
 import NavigationOptions from '../components/NavigationOptions';
 import Layout from '../config/Layout'
 import stripe from 'tipsi-stripe'
 import LoginModal from '../components/LoginModal'
+import { removeProduct } from '../store/actions/products'
 
+const swipeoutBtns = [
+    {
+        text: 'Delete',
+    }
+]
 
 class CartScreen extends React.Component {
 
@@ -38,19 +45,27 @@ class CartScreen extends React.Component {
         this.setState({ products: this.props.products.products});
     }
 
+    handleRemovePress = (item) => {
+        console.log('ok')
+        this.props.removeProduct(item)
+    }
+
     _renderItem ({item, index}) {
-        this.setState({totalCart: this.state.totalCart += item.price})
+        this.setState({totalCart: this.state.totalCart += item.price});
+
         return (
-          <View key={index} style={styles.itemContainer}>
-              <Image
-                source={{uri: item.image}}
-                style={styles.image}
-              />
-              <View style={styles.informations}>
-                  <Text style={styles.name}>{item.name}</Text>
-                  <Text style={styles.price}>{item.price}€</Text>
+          <Swipeout right={swipeoutBtns} style={styles.swipeout} autoClose={true} onPress={() => this.handleRemovePress(item)}>
+              <View key={index} style={styles.itemContainer}>
+                  <Image
+                    source={{uri: item.image}}
+                    style={styles.image}
+                  />
+                  <View style={styles.informations}>
+                      <Text style={styles.name}>{item.name}</Text>
+                      <Text style={styles.price}>{item.price}€</Text>
+                  </View>
               </View>
-          </View>
+          </Swipeout>
         );
     }
 
@@ -73,15 +88,17 @@ class CartScreen extends React.Component {
     const  = stripe.setOptions({ publishableKey: 'pk_test_t37blAfCMrTelgLdJH5B1QBq'});
 
     handlePayButtonPress = () => {
-
-        console.log(this.props);
-
         if(this.props.isConnected.isConnected) {
             return stripe
               .paymentRequestWithCardForm()
               .then(stripeTokenInfo => {
-                  axios.post('https://hackaton2019watcher.herokuapp.com/order/pay', {stripeTokenInfo})
-                  console.warn('Token created', {stripeTokenInfo});
+                  axios({
+                      method: 'post',
+                      url: 'https://hackaton2019watcher.herokuapp.com/order/pay',
+                      headers: {
+                          'autorization': this.props.isConnected.isConnected
+                      }, data: { tokenId: stripeTokenInfo }
+                  });
               })
               .catch(error => {
                   console.warn('Payment failed', {error});
@@ -109,7 +126,7 @@ class CartScreen extends React.Component {
                   </View>
                   <Button
                     buttonStyle={styles.buttonStyle}
-                    title={this.props.isConnected ? "Pay" : "You first need to login"}
+                    title={this.props.isConnected.isConnected ? "Pay" : "You need to login"}
                     onPress={this.handlePayButtonPress}
                     disabled={this.state.isPaymentPending}
                   />
@@ -125,8 +142,8 @@ const styles = StyleSheet.create({
         flex: 1,
         margin: Layout.marginL,
     },
-    itemContainer: {
-        flexDirection: 'row',
+    swipeout: {
+        backgroundColor: '#f4f4f4',
         borderRadius: Layout.radius,
         shadowColor: "#000",
         shadowOffset: {
@@ -136,8 +153,21 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.23,
         shadowRadius: 2.62,
         elevation: 4,
-        paddingHorizontal: Layout.margin,
-        paddingVertical: Layout.marginL
+        marginVertical: Layout.marginL,
+    },
+    itemContainer: {
+        backgroundColor: '#f4f4f4',
+        flexDirection: 'row',
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.23,
+        shadowRadius: 2.62,
+        elevation: 4,
+        padding: Layout.margin
+
     },
     image: {
         borderRadius: Layout.radius,
@@ -146,7 +176,6 @@ const styles = StyleSheet.create({
     },
     informations: {
         flex: 1,
-        flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
         fontSize: 16
@@ -154,12 +183,11 @@ const styles = StyleSheet.create({
     name: {
         fontSize: 24,
         letterSpacing: 2,
-        fontWeight: 'bold',
-        paddingLeft: 2*Layout.marginL,
-        paddingRight: Layout.marginL
+        textTransform: 'uppercase',
+        fontWeight: '100',
     },
     price: {
-        fontSize: 24,
+        fontSize: 16,
         letterSpacing: 2,
         fontWeight: '100',
         paddingHorizontal: Layout.marginL
@@ -196,4 +224,10 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = ({ products, isConnected }) => ({ products, isConnected });
 
-export default connect(mapStateToProps, null)(CartScreen);
+const mapDispatchToProps = (dispatch) => {
+    return {
+        removeProduct: (item) => dispatch(removeProduct(item))
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps())(CartScreen);

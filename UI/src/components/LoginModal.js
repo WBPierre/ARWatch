@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal, View, StyleSheet, Image } from 'react-native';
+import { Modal, View, StyleSheet, Image, Text } from 'react-native';
 import { Input, Icon, Button } from 'react-native-elements';
 import { connect } from 'react-redux';
 
@@ -25,7 +25,7 @@ class LoginModal extends React.Component {
         email: this.state.email,
         password: this.state.password
       }).then(res => {
-          this.props.isConnected(res.data.token);
+          this.props.isConnected(res.data);
           this.props.setModalVisible();
       })
   }
@@ -40,14 +40,6 @@ class LoginModal extends React.Component {
         onRequestClose={() => {
           Alert.alert('Modal has been closed.');
         }}>
-        <View style={{ flex: 1}}>
-          <Icon
-            name='times'
-            type='font-awesome'
-            color='#000'
-            size={35}
-            style={styles.exit}
-          />
           <View style={{ flex: 1, marginTop: '50%' }}>
             <Image source={require('../images/logo.png')} style={styles.logo}/>
             <View style={styles.container}>
@@ -90,9 +82,9 @@ class LoginModal extends React.Component {
                 title="Login"
                 onPress={this.handleSubmit.bind(this)}
               />
+              <Text style={styles.close} onPress={this.props.setModalVisible}>Close</Text>
             </View>
           </View>
-        </View>
       </Modal>
     )
   }
@@ -130,7 +122,12 @@ const styles = StyleSheet.create({
     position: 'absolute',
     right: 0,
     top: Layout.marginL
-  }
+  },
+  close: {
+    fontWeight: '100',
+    textDecorationLine: "underline",
+    textDecorationStyle: "solid",
+    textDecorationColor: "#000"  }
 })
 
 

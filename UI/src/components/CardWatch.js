@@ -11,7 +11,7 @@ type props {
 }
 */
 
-const CardWatch = (props) => {
+const   CardWatch = (props) => {
   return(
     <View style={styles.container}>
       <TouchableOpacity onPress={props.onPress}>
@@ -56,12 +56,15 @@ const styles = StyleSheet.create({
   },
   name: {
     flexWrap: 'wrap',
-    fontWeight: 'bold',
-    textAlign: 'center'
+    fontWeight: '100',
+    textAlign: 'center',
+    textTransform: 'uppercase',
+    fontSize: 20
   },
   price: {
     paddingTop: Layout.margin,
-    fontSize: 12
+    fontWeight: '100',
+    fontSize: 16
   }
 });
 

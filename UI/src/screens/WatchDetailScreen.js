@@ -66,15 +66,17 @@ class WatchDetailScreen extends React.Component {
         <View style={styles.textContainer}>
           <Text style={styles.title}>{item.name}</Text>
           <Text style={styles.price}>{item.price}€</Text>
+          <View style={{ flexDirection: 'row'}}>
           {item.sizes.map((size, index) => (
             <View key={index} style={styles.sizeContainer}>
-              <Text style={styles.size}>{size.name}</Text>
+              <Text style={styles.size}>{size}</Text>
             </View>
           ))}
+          </View>
           <Text style={styles.presentation}>{item.description}</Text>
         </View>
         <View style={styles.buttonContainer}>
-          <Button title="Button" buttonStyle={styles.buttonStyle} />
+          <Button title="AR Watch" buttonStyle={styles.buttonStyle} />
         </View>
       </ScrollView>
     );
@@ -84,8 +86,9 @@ class WatchDetailScreen extends React.Component {
 const styles = StyleSheet.create({
   buttonStyle: {
     height: 40,
-    width:100,
+    width: 300,
     marginHorizontal: 2*Layout.marginL,
+    marginBottom: Layout.marginL,
     borderRadius:10,
     backgroundColor: '#000'
   },
@@ -118,15 +121,15 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   title: {
-    fontWeight: 'bold',
-    fontSize: 25,
-    letterSpacing: 2,
+    fontWeight: '200',
+    textTransform: 'uppercase',
+    fontSize: 33,
     alignItems: 'center'
   },
   price: {
     alignItems: 'center',
     fontWeight: '100',
-    fontSize: 33
+    fontSize: 24
   },
   presentation: {
     paddingVertical: Layout.marginL,
@@ -141,14 +144,16 @@ const styles = StyleSheet.create({
   },
   sizeContainer: {
     marginTop: Layout.marginL,
-    width: 43,
+    marginRight: Layout.marginL,
+    width: 50,
     borderWidth: 1,
     padding: Layout.marginL,
+    justifyContent: 'center'
   },
   size: {
+    flexDirection: 'row',
     textAlign: 'center',
     fontWeight: 'bold',
-    flexDirection: 'column'
   }
 });
 

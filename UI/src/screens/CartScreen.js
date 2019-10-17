@@ -6,6 +6,7 @@ import { Button, Icon } from 'react-native-elements'
 import NavigationOptions from '../components/NavigationOptions';
 import Layout from '../config/Layout'
 import stripe from 'tipsi-stripe'
+import LoginModal from '../components/LoginModal'
 
 
 class CartScreen extends React.Component {
@@ -14,22 +15,12 @@ class CartScreen extends React.Component {
         return {
             ...NavigationOptions,
             title: 'Panier',
-            headerLeft: (
-              <Icon
-                onPress={() => navigation.openDrawer()}
-                name='bars'
-                type='font-awesome'
-                color='#000'
-                size={30}
-              />
-            ),
             headerStyle: {
                 backgroundColor: '#fff',
                 shadowColor: 'transparent',
                 elevation: 0,
                 borderBottomColor: 'transparent',
                 borderBottomWidth: 0,
-                marginLeft: Layout.marginL
             }
         }
     };
@@ -37,7 +28,9 @@ class CartScreen extends React.Component {
         super(props);
         this.state = {
             products: [],
-            totalCart: 0
+            totalCart: 0,
+            isPaymentPending: false,
+            paymodalModalVisible: false
         };
     }
 
@@ -78,16 +71,29 @@ class CartScreen extends React.Component {
 
     const  = stripe.setOptions({ publishableKey: 'pk_test_t37blAfCMrTelgLdJH5B1QBq'});
 
-    requestPayment = () => {
+    handlePayButtonPress = () => {
+
+        this.setState({ paymodalModalVisible: true });
+
+        /*
         return stripe
           .paymentRequestWithCardForm()
           .then(stripeTokenInfo => {
+              axios.post('https://hackaton2019watcher.herokuapp.com/order')
               console.warn('Token created', { stripeTokenInfo });
           })
           .catch(error => {
               console.warn('Payment failed', { error });
           });
+
+          */
     };
+
+    closeModal = () => {
+        this.setState({ payModalVisible: false })
+    }
+
+
 
     render () {
 
@@ -106,11 +112,13 @@ class CartScreen extends React.Component {
                       <Text style={styles.totalCartPrice}>{this.state.totalCart}€</Text>
                   </View>
                   <Button
+                    buttonStyle={styles.buttonStyle}
                     title="Pay"
-                    onPress={this.requestPayment}
+                    onPress={this.handlePayButtonPress}
                     disabled={this.state.isPaymentPending}
                   />
               </View>
+              <LoginModal isVisible={this.state.paymodalModalVisible} onCloseModal={this.closeModal}/>
           </View>
         );
     }

@@ -22,6 +22,7 @@ class CartScreen extends React.Component {
     }
 
     componentDidMount  () {
+        console.log(this.props.navigation.state.params);
         this.setState({ products: this.props.products.products});
     }
 

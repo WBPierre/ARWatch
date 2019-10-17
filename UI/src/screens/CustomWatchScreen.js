@@ -1,9 +1,11 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native'
 import { ProgressSteps, ProgressStep } from 'react-native-progress-steps';
+import axios from 'axios';
 
 import NavigationOptions from '../components/NavigationOptions';
 import Layout from '../config/Layout';
+import config from '../config';
 import Carousel, { Pagination } from 'react-native-snap-carousel'
 
 
@@ -66,25 +68,34 @@ class CustomWatchScreen extends React.Component {
   }
 
   handleSnapToItem = () => {
-    this.setState({ activeIndexCarousel: this._carousel.currentIndex })
+    this.setState({ activeIndexCarousel: this._carousel.currentIndex });
   }
 
   handleStepPress = (category) => {
     switch(category){
-      case 'first': this.setState({ watchComponent: [...this.state.watchComponent, bracelet[this._carousel.currentIndex]] });
-      case 'second': this.setState({ watchComponent: [...this.state.watchComponent, dial[this._carousel.currentIndex]] });
-      case 'submit': this.setState({ watchComponent: [...this.state.watchComponent, bracelet[this._carousel.currentIndex]] });
+      case 'first': {
+        this.setState({ watchComponent: [...this.state.watchComponent, bracelet[this._carousel.currentIndex]] }, () => {
+          this.setState({ activeIndexCarousel: 0 }, () => {
+            this._carousel.snapToItem(0);
+          });
+        });
+      }
+      case 'second': {
+        this.setState({ watchComponent: [...this.state.watchComponent, dial[this._carousel.currentIndex]] }, () => {
+          this.setState({ activeIndexCarousel: 0 }, () => {
+            this._carousel.snapToItem(0);
+          });
+        });
+      }
     }
-
-    console.log(this.state.watchComponent)
   }
 
   handleSubmitPress = () => {
-
-    const watchComponent = this.state.watchComponent;
-
-    this.setState({ watchComponent: [...this.state.watchComponent, bracelet[this._carousel.currentIndex]] },
-      () => this.props.navigation.navigate('Cart', { watchComponent }));
+    this.setState({ watchComponent: [...this.state.watchComponent, bracelet[this._carousel.currentIndex]]},
+      () => {
+      const watchComponent = this.state.watchComponent;
+      axios.post(`${config.api}/auth`, { watchComponent }).then(() => this.props.navigation.navigate('Cart', { watchComponent }));
+      });
   }
 
   render () {
@@ -186,6 +197,24 @@ class CustomWatchScreen extends React.Component {
               enableMomentum={true}
               activeSlideOffset={10}
               onBeforeSnapToItem={this.handleSnapToItem}
+            />
+            <Pagination
+              carouselRef={this._carousel}
+              dotsLength={3}
+              activeDotIndex={this.state.activeIndexCarousel}
+              containerStyle={{ backgroundColor: '#000' }}
+              dotStyle={{
+                width: 10,
+                height: 10,
+                borderRadius: 5,
+                marginHorizontal: 8,
+                backgroundColor: 'rgba(255, 255, 255, 0.92)'
+              }}
+              inactiveDotStyle={{
+                // Define styles for inactive dots here
+              }}
+              inactiveDotOpacity={0.4}
+              inactiveDotScale={0.6}
             />
           </ProgressStep>
         </ProgressSteps>

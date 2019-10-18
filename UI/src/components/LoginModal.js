@@ -13,8 +13,8 @@ class LoginModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-        email: '',
-        password: '',
+        email: 'titi@gmail.com',
+        password: 'test',
     }
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -45,6 +45,7 @@ class LoginModal extends React.Component {
             <View style={styles.container}>
               <Input
                 name='email'
+                textContentType='emailAddress'
                 onChangeText={(value) => this.setState({ email: value })}
                 value={this.state.email}
                 containerStyle={styles.containerInput}
@@ -61,7 +62,9 @@ class LoginModal extends React.Component {
                 }
               />
               <Input
+                textContentType='password'
                 name='password'
+                pass
                 onChangeText={(value) => this.setState({ password: value })}
                 value={this.state.password}
                 containerStyle={styles.containerInput}

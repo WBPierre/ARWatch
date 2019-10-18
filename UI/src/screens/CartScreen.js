@@ -1,11 +1,13 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image, FlatList } from 'react-native'
+import { View, Text, StyleSheet, FlatList, ActivityIndicator } from 'react-native'
 import { connect } from 'react-redux';
-import { Button, Icon } from 'react-native-elements'
+import { Button, Image } from 'react-native-elements'
 import Swipeout from 'react-native-swipeout';
+import axios from 'axios';
 
 import NavigationOptions from '../components/NavigationOptions';
 import Layout from '../config/Layout'
+import config from '../config';
 import stripe from 'tipsi-stripe'
 import LoginModal from '../components/LoginModal'
 import { removeProduct } from '../store/actions/products'
@@ -54,11 +56,12 @@ class CartScreen extends React.Component {
         this.setState({totalCart: this.state.totalCart += item.price});
 
         return (
-          <Swipeout right={swipeoutBtns} style={styles.swipeout} autoClose={true} onPress={() => this.handleRemovePress(item)}>
+          <Swipeout right={swipeoutBtns} style={styles.swipeout} autoClose={true} onPress={() => this.handleRemovePress(item).b}>
               <View key={index} style={styles.itemContainer}>
                   <Image
                     source={{uri: item.image}}
                     style={styles.image}
+                    PlaceholderContent={<ActivityIndicator />}
                   />
                   <View style={styles.informations}>
                       <Text style={styles.name}>{item.name}</Text>
@@ -88,6 +91,7 @@ class CartScreen extends React.Component {
     const  = stripe.setOptions({ publishableKey: 'pk_test_t37blAfCMrTelgLdJH5B1QBq'});
 
     handlePayButtonPress = () => {
+        const allIdProducts = this.state.products.map(product => product._id);
         if(this.props.isConnected.isConnected) {
             return stripe
               .paymentRequestWithCardForm()
@@ -96,9 +100,15 @@ class CartScreen extends React.Component {
                       method: 'post',
                       url: 'https://hackaton2019watcher.herokuapp.com/order/pay',
                       headers: {
-                          'autorization': this.props.isConnected.isConnected
-                      }, data: { tokenId: stripeTokenInfo }
+                          'authorization': this.props.isConnected.isConnected
+                      }, data: {
+                          idUser: '123456789',
+                          allIdProducts: allIdProducts,
+                          tokenId: stripeTokenInfo,
+                          totalCart: this.state.products.length < 2 ? this.state.totalCart : this.state.totalCart/2
+                      }
                   });
+                  this.props.navigation.popToTop();
               })
               .catch(error => {
                   console.warn('Payment failed', {error});
@@ -110,6 +120,7 @@ class CartScreen extends React.Component {
     };
 
     render () {
+        console.log(this.props.isConnected.isConnected)
         return(
           <View style={styles.container}>
               {this.state.products.length === 0 && <Image source={require('../images/empty.png')} style={styles.emptyCart} />}

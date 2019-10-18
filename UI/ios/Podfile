@@ -31,6 +31,7 @@ target 'UI' do
   pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
   pod 'Stripe'
   pod 'tipsi-stripe', :path => '../node_modules/tipsi-stripe'
+  pod 'RNGestureHandler', :podspec => '../node_modules/react-native-gesture-handler/RNGestureHandler.podspec'
 
 end
 

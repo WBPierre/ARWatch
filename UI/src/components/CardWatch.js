@@ -1,5 +1,6 @@
 import React from 'react';
-import { Image, StyleSheet, Text, View, TouchableOpacity } from 'react-native'
+import {StyleSheet, Text, View, TouchableOpacity, ActivityIndicator } from 'react-native'
+import { Image } from 'react-native-elements';
 import Layout from '../config/Layout'
 
 /*
@@ -18,6 +19,7 @@ const   CardWatch = (props) => {
         <Image
           source={{ uri:props.image }}
           style={styles.watch}
+          PlaceholderContent={<ActivityIndicator />}
         />
       </TouchableOpacity>
       <View style={styles.textContainer}>

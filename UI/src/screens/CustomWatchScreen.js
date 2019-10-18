@@ -87,7 +87,7 @@ class CustomWatchScreen extends React.Component {
   handleSubmitPress = () => {
     this.setState({ watchComponent: [...this.state.watchComponent, this.state.allWatchComponents[2][this._carousel.currentIndex]]},
       () => {
-      const watchComponent = this.state.watchComponent;
+        const watchComponent = this.state.watchComponent;
         this.props.navigation.navigate('Cart', { watchComponent})
 
       });

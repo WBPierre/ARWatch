@@ -9,6 +9,7 @@ import HomeScreen from './src/screens/HomeScreen';
 import CartScreen from './src/screens/CartScreen';
 import CustomWatchScreen from './src/screens/CustomWatchScreen';
 import WatchDetailScreen from './src/screens/WatchDetailScreen';
+import HelpScreen from "./src/screens/HelpScreen";
 import configureStore from './src/store/configureStore'
 
 
@@ -31,6 +32,11 @@ const AppNavigator = createDrawerNavigator(
     CartDrawer: createStackNavigator({
       Cart: {
         screen: CartScreen,
+      }
+    }),
+    HelpDrawer: createStackNavigator({
+      Help: {
+        screen: HelpScreen,
       }
     })
   },{

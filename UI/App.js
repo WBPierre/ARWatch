@@ -27,6 +27,8 @@ const AppNavigator = createDrawerNavigator(
       CustomWatch: {
         screen: CustomWatchScreen
       }
+    }, {
+      drawerLabel: 'Home'
     }),
     CartDrawer: createStackNavigator({
       Cart: {
